@@ -25,9 +25,17 @@ class Square {
   }//end Square()
   
   boolean inGrid(Grid g) {
-    
+    println("METHODE Square.inGrid() non codée");
+    return true;
   }//end inGrid()
   
   void display() {
+    if (nature==0) fill(255);
+    else if (nature>0 && nature <9) fill(0,150+nature*20,0);
+    else if (nature==9) fill(255,0,0);
+    else if (nature==10) fill(200,100,0);
+    else if (nature==11) fill(0);
+    
+    rect(x*SQUARE_WIDTH, y*SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
   }//end display()
 }//end class Square

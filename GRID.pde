@@ -14,6 +14,8 @@ class Grid {
   int posX, posY; //Coordonnées de l'angle haut gauche de la grille dans la fenêtre
   int nRow, nCol; //Nombre de lignes et de colonnes de la grille
   
+  float squareWidth; //Largeur des Square de la grille
+  
   PImage bg; //Background de la grille
   
   Grid(int xin, int yin, Table gridCSV, int numGrid, int initBombProportion, PImage background) {
@@ -58,13 +60,15 @@ class Grid {
     while (i<gridCSV.getRowCount() && gridCSV.getRow(i).getInt("numGrid")==numGrid) {
       searchedGrid.add(gridCSV.getRow(i));
       i++;
+      println("Grid.Constructeur -> Row"+i+" : ");
+      gridCSV.getRow(i).print();
     }
     
     //On récupère maintenant l'ensemble des squares dans un ArrayList
     for (TableRow row : searchedGrid) {
       x = row.getInt("x");
       y = row.getInt("y");
-      nature = (row.getInt("mur?")==0) ? 0 : 11;//Si la valeur est un 0 on laisse 0, sinon quoi que ce soit on met 11
+      nature = (row.getInt("obstacle?")==0) ? 0 : 11;//Si la valeur est un 0 on laisse 0, sinon quoi que ce soit on met 11
       squares.add(new Square(x, y, nature));
     }//end for
     //Puis une fois qu'on a tout sorti, on connais maintenant les dimensions de la grille.
@@ -150,6 +154,7 @@ class Grid {
     */
     for (int j=0; j<nRow; j++) {
       for (int i=0; i<nCol; i++) {
+        println("Grid.updateInfos() -> i="+i+", j="+j);
         Square square = grid[j][i];
         //Si le Square est une case vide, on change sa nature en fonction du nombre de bombes autour de lui
         if (square.nature==0) square.nature = this.numBombsAround(square);

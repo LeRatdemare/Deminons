@@ -9,7 +9,9 @@ void setup() {
   du jeu.
   */
   loadGrids();
-}
+  loadImages();
+  grid = new Grid(0, 0, GRIDS_FILE, 0, 25, image_background);
+}//end setup()
 
 void loadGrids() {
   /*
@@ -17,4 +19,8 @@ void loadGrids() {
   partir de fichiers CSV stockés dans le fichier CSV_GRIDS_PATH.
   */
   GRIDS_FILE = loadTable(CSV_GRIDS_PATH, "header,csv");
-}
+}//end loadGrids()
+
+void loadImages() {
+  image_background = loadImage("images/dirt.png");
+}//end loadImages()
