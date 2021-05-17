@@ -16,7 +16,7 @@ class Grid {
   
   PImage bg; //Background de la grille
   
-  Grid(int xin, int yin, Table gridCSV, int initBombProportion, PImage background) {
+  Grid(int xin, int yin, Table gridCSV, int numGrid, int initBombProportion, PImage background) {
     /*
     Constructeur qui permet de créer une grille à partir d'informations
     stockées dans un fichier CSV. Les Square doivent impérativement avoir
@@ -31,6 +31,7 @@ class Grid {
     0, 1, 1, 0
     0, 1, 2, 0
     */
+    
     //On initialise d'abord les attributs de l'instance
     posX = xin;
     posY = yin;
@@ -40,9 +41,27 @@ class Grid {
     //On prépare des variables temporaires
     int x, y, nature;
     ArrayList<Square> squares = new ArrayList<Square>();
-
-    //On récupère d'abord l'ensemble des squares dans un ArrayList
-    for (TableRow row : gridCSV.rows()) {
+    
+    
+    //On commence par récupérer les données correspondant à la grille voulue.
+    int i=0;
+    TableRow firstRow;
+    ArrayList<TableRow> searchedGrid = new ArrayList<TableRow>();
+    //Récupération de la première ligne(elle doit nécessairement exister et contenir au moins 2 lignes en plus du header)
+    do {
+      firstRow = gridCSV.getRow(i);
+      i++;
+    } while (i<gridCSV.getRowCount() && firstRow.getInt("numGrid")!=numGrid);
+    
+    //On récupère les TableRow dont on a besoin dans searchedgrid
+    searchedGrid.add(firstRow);
+    while (i<gridCSV.getRowCount() && gridCSV.getRow(i).getInt("numGrid")==numGrid) {
+      searchedGrid.add(gridCSV.getRow(i));
+      i++;
+    }
+    
+    //On récupère maintenant l'ensemble des squares dans un ArrayList
+    for (TableRow row : searchedGrid) {
       x = row.getInt("x");
       y = row.getInt("y");
       nature = (row.getInt("mur?")==0) ? 0 : 11;//Si la valeur est un 0 on laisse 0, sinon quoi que ce soit on met 11

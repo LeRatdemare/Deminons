@@ -14,10 +14,7 @@ void setup() {
 void loadGrids() {
   /*
   Fonction servant à charger toutes les grilles prédéfinies à
-  partir de fichiers CSV stockés dans le dossier grids. Chaque
-  grille doit s'appeler "grid0.csv", "grid1.csv", etc...
+  partir de fichiers CSV stockés dans le fichier CSV_GRIDS_PATH.
   */
-  for (int i=0; i<GRID_FILES.length; i++) {
-    GRID_FILES[i] = loadTable("grids/grid"+i+".csv", "header"); //On charge chaque grille
-  }//end for
+  GRIDS_FILE = loadTable(CSV_GRIDS_PATH, "header,csv");
 }
