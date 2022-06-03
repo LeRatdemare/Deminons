@@ -2,7 +2,7 @@ class Grid {
   /*
   Dans une partie de deminons, le terrain est composé d'un certain nombre de
   grilles inter-dépendantes.
-  Chaque grille est constituée entièrement de Square possèdera son propre
+  Chaque grille est constituée entièrement de Square et possèdera son propre
   système de coordonnées.
   D'autre part, il ne sera possible pour un joueur de passer d'une grille
   à l'autre qu'en passant par un trou.
